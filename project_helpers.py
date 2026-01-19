@@ -293,7 +293,7 @@ def estimate_E_robust(x1, x2, eps, seed=None):
     E = enforce_essential(estimate_F_DLT(x1_inliers, x2_inliers))
     inliers = np.vstack((x1_inliers,x2_inliers))
     errs = best_errs
-    print('inliers',sum(best_inlier_mask))
+    #print('inliers',sum(best_inlier_mask))
     
     return E, inliers, errs, iters
 
@@ -301,7 +301,7 @@ def count_points_in_front(P1, P2, x1_k, x2_k):
     n = x1_k.shape[1]
     count = 0
     for i in range(n):
-        X = triangulate_3D_point_DLT(P1, P2, x1_k[:, i], x2_k[:, i])
+        X = triangulate_3D_point_DLT(x1_k[:, i], x2_k[:, i], P1, P2)
         
         if (P1[2] @ X + P1[2,3] > 0) and (P2[2] @ X + P2[2,3] > 0):
             count += 1
